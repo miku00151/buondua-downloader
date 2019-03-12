@@ -5,11 +5,12 @@ import time
 import click
 
 STRS = {
-	"down": "Downloading %s.",
-	"comp": "Complete. Took %.2f seconds.",
-	"all_comp": "---\nDownloading %d images took %.2f seconds to complete.",
+	'down': 'Downloading %s.',
+	'comp': 'Complete. Took %.2f seconds.',
+	'add_wait': 'Waiting for an additional %.2f seconds.',
+	'all_comp': '---\nDownloading %d images took %.2f seconds to complete.\nPlus %.2f additional seconds of wait time.',
 }
-URL = "http://ii.hywly.com/a/1/{}/{}.jpg"
+URL = 'http://ii.hywly.com/a/1/{}/{}.jpg'
 
 def strings(s):
 	return STRS.get(s)
@@ -51,8 +52,9 @@ def get_opener():
 
 def download_images(links, path):
 	total_time = 0
+	total_pauses = 0
 	get_opener()
-	for link in links:
+	for n, link in enumerate(links):
 		name = link.split('/')[-1]
 		print(strings('down') % link)
 		start = time.time()
@@ -61,7 +63,14 @@ def download_images(links, path):
 		passed = end - start
 		total_time += passed
 		print(strings('comp') % passed)
-	print(strings('all_comp') % (len(links), total_time))
+		if (n + 1) == len(links):
+			pass
+		elif passed < 5:
+			add = 5 - passed
+			print(strings('add_wait') % add)
+			time.sleep(add)
+			total_pauses += add
+	print(strings('all_comp') % (len(links), total_time, total_pauses))
 
 if __name__ == '__main__':
 	start()
