@@ -4,6 +4,7 @@ import urllib.request
 import time
 import click
 
+
 STRS = {
 	'down': 'Downloading %s.',
 	'comp': 'Complete. Took %.2f seconds.',
@@ -14,6 +15,7 @@ URL = 'http://ii.hywly.com/a/1/{}/{}.jpg'
 
 def strings(s):
 	return STRS.get(s)
+
 
 # Adds -h in addition to the default --help
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -63,6 +65,7 @@ def download_images(links, path):
 		passed = end - start
 		total_time += passed
 		print(strings('comp') % passed)
+		
 		if (n + 1) == len(links):
 			pass
 		elif passed < 5:
@@ -70,7 +73,9 @@ def download_images(links, path):
 			print(strings('add_wait') % add)
 			time.sleep(add)
 			total_pauses += add
+
 	print(strings('all_comp') % (len(links), total_time, total_pauses))
+
 
 if __name__ == '__main__':
 	start()
