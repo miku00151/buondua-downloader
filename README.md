@@ -37,6 +37,6 @@ Model name, alias and other info is below this information on the website if you
 
 ### Result:
 
-Check [this issue](https://github.com/kittenparry/meituri-downloader/issues/1) about other terminal applications.
+_On a different gallery but still_.
 
-![](extras/screenshot_cmd.png)
+![](extras/screenshot_urxvt.png)
