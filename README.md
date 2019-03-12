@@ -34,8 +34,10 @@ Usage in command line:
 python meituri.py -a album_id -n num_of_pics
 ```
 
-### Example:
-`python meituri.py -a 14449 -n 55`
+Example:
+```
+python meituri.py -a 14449 -n 55
+```
 
 ![](extras/screenshot_site.png)
 
