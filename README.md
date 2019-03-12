@@ -22,10 +22,12 @@ Options:
 
 ## How to
 
-First install `click` by running the following:
+First install `click` by running the following (one or the other, not sure):
 
 ```
 pip install -r requirements.txt
+OR
+pipenv install -r requirements.txt
 ```
 
 Usage in command line:
