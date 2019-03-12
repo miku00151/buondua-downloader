@@ -6,7 +6,6 @@ The album ID and the number of photos in the album are needed inputs to start do
 
 
 Requires `click` to work with CLI arguments.  
-`pip install -r requirements.txt`
 ```
 Usage: meituri.py [OPTIONS]
 
@@ -23,9 +22,17 @@ Options:
 
 ## How to
 
+First install `click` by running the following:
+
+```
+pip install -r requirements.txt
+```
+
 Usage in command line:
 
-`python meituri.py -a album_id -n num_of_pics`
+```
+python meituri.py -a album_id -n num_of_pics
+```
 
 ### Example:
 `python meituri.py -a 14449 -n 55`
