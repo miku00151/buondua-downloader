@@ -16,9 +16,9 @@ Options:
   -h, --help            Show this message and exit.
 ```
 
-**(12th of March of 2019) Notice:** After adding a minimum of 5 seconds time delay between downloads, they seem to work fine.
+**(12th Mar of 2019) Notice:** After adding a minimum of 5 seconds time delay between downloads, they seem to work fine.
 
-**(24th February of 2019) Notice:** I'm getting `an existing connection was forcibly closed by the remote host` error or it just hangs still (can't even CTRL + C) after 5-6 images. Maybe it's just me.
+**(24th Feb of 2019) Notice:** I'm getting `an existing connection was forcibly closed by the remote host` error or it just hangs still (can't even CTRL + C) after 5-6 images. Maybe it's just me.
 
 ## How to
 
