@@ -5,16 +5,7 @@ import time
 import click
 
 
-STRS = {
-	'down': 'Downloading %s.',
-	'comp': 'Complete. Took %.2f seconds.',
-	'add_wait': 'Waiting for an additional %.2f seconds.',
-	'all_comp': '---\nDownloading %d images took %.2f seconds to complete.\nPlus %.2f additional seconds of wait time.',
-}
 URL = 'http://ii.hywly.com/a/1/{}/{}.jpg'
-
-def strings(s):
-	return STRS.get(s)
 
 
 # Adds -h in addition to the default --help
@@ -58,23 +49,23 @@ def download_images(links, path):
 	get_opener()
 	for n, link in enumerate(links):
 		name = link.split('/')[-1]
-		print(strings('down') % link)
+		print('Downloading %s.' % link)
 		start = time.time()
 		urllib.request.urlretrieve(link, path + name)
 		end = time.time()
 		passed = end - start
 		total_time += passed
-		print(strings('comp') % passed)
+		print('Complete. Took %.2f seconds.' % passed)
 		
 		if (n + 1) == len(links):
 			pass
 		elif passed < 5:
 			add = 5 - passed
-			print(strings('add_wait') % add)
+			print('Waiting for an additional %.2f seconds.' % add)
 			time.sleep(add)
 			total_pauses += add
 
-	print(strings('all_comp') % (len(links), total_time, total_pauses))
+	print('---\nDownloading %d images took %.2f seconds to complete.\nPlus %.2f additional seconds of wait time.' % (len(links), total_time, total_pauses))
 
 
 if __name__ == '__main__':
