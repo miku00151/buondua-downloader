@@ -2,27 +2,25 @@ import sys
 import os
 import urllib.request
 import time
-import click
+import argparse
 
 
 URL = 'http://ii.hywly.com/a/1/{}/{}.jpg'
 
 
-# Adds -h in addition to the default --help
-CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
-@click.command(context_settings=CONTEXT_SETTINGS)
-@click.option('-a', '--album', type=int,
-	prompt='Enter the album id',
-	help='Album ID located in the URL: https://www.meituri.com/a/$ID')
-@click.option('-n', '--number', type=int,
-	prompt='Enter the number of images',
-	help='Number of pictures on top of the page followed by P.')
-# couldn't figure out to also optionally add arguments below
-# @click.argument('album', type=int, required=False)
-# @click.argument('number', type=int, required=False)
-def start(album, number):
+def start():
+	parser = argparse.ArgumentParser(description='Album downloader for meituri.com.')
+	group_req = parser.add_argument_group('required arguments')
+	group_req.add_argument('-a', '--album', metavar='ID',
+		help='album ID located in the URL: https://www.meituri.com/a/$ID',
+		type=int, required=True)
+	group_req.add_argument('-n', '--number', metavar='pics',
+		help='number of pictures on top of the page followed by P',
+		type=int, required=True)
+	args = parser.parse_args()
+
 	out = []
-	path = f'albums/hywly-{album}/'
+	path = f'albums/hywly-{args.album}/'
 	try:
 		if not os.path.exists(path):
 			os.makedirs(path)
@@ -33,11 +31,11 @@ def start(album, number):
 		print(f'OSError: {e}')
 		return
 
-	for x in range(1, number+1):
-		out.append(URL.format(album, x))
-	
+	for x in range(1, args.number+1):
+		out.append(URL.format(args.album, x))
+
 	download_images(out, path)
-	
+
 def get_opener():
 	opener = urllib.request.build_opener()
 	opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36')]
@@ -56,7 +54,7 @@ def download_images(links, path):
 		passed = end - start
 		total_time += passed
 		print('Complete. Took %.2f seconds.' % passed)
-		
+
 		if (n + 1) == len(links):
 			pass
 		elif passed < 5:
