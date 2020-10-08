@@ -5,7 +5,7 @@ import time
 import argparse
 
 
-URL = 'http://ii.hywly.com/a/1/{}/{}.jpg'
+URL = 'http://lns.hywly.com/a/1/{}/{}.jpg'
 
 
 def start():
