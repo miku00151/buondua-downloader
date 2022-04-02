@@ -35,12 +35,12 @@ def start():
                 return
 
         album_name = ""  # Use additional album_name constructed by the link
-	                 # instead of `args.album`
+                         # instead of `args.album`
 
         if args.link is not None and "buondua.com" in args.link:   # branch for buondua.com
                 magic_string = "photo 1-0"                         # used for finding the first picture link
 
-		# Connect and get the web page
+                # Connect and get the web page
                 client = ul.urlopen(ul.Request(args.link, headers={'User-Agent': 'Mozilla/5.0'}))
                 htmllines = client.read().decode().split('\n')
                 client.close()
@@ -54,10 +54,10 @@ def start():
                 srcline_split = srcline.split(" ")         # split for better manipulation
                 datasrc = "".join([x if "data-src=" in x else "" for x in srcline_split])    # delete other parts except the part containing the pic download link
 
-		# Construct link template
+                # Construct link template
                 link_template = datasrc.replace("data-src=","").replace("\"", "").split("?")[0].replace("001.jpg","%03d.jpg")
 
-		# Get the album size from link
+                # Get the album size from link
                 album_size = int( srcline_split[srcline_split.index("photos)") - 1].replace("(","") )
 
                 for x in range(1, album_size+1):
@@ -93,22 +93,28 @@ def download_images(links, path):
         total_pauses = 0
         get_opener()
         for n, link in enumerate(links):
-                name = link.split('/')[-1].split('-')[-1]
-                print('Downloading %s.' % link)
-                start = time.time()
-                urllib.request.urlretrieve(link, path + name)
-                end = time.time()
-                passed = end - start
-                total_time += passed
-                print('Complete. Took %.2f seconds.' % passed)
+                try:
+                        name = link.split('/')[-1].split('-')[-1]
+                        print('Downloading %s.' % link)
+                        start = time.time()
+                        urllib.request.urlretrieve(link, path + name)
+                        end = time.time()
+                        passed = end - start
+                        total_time += passed
+                        print('Complete. Took %.2f seconds.' % passed)
 
-                if (n + 1) == len(links):
-                        pass
-                elif passed < COMPLETE_TIME:
-                        add = COMPLETE_TIME - passed
-                        print('Waiting for an additional %.2f seconds.' % add)
-                        time.sleep(add)
-                        total_pauses += add
+                        if (n + 1) == len(links):
+                                pass
+                        elif passed < COMPLETE_TIME:
+                                add = COMPLETE_TIME - passed
+                                print('Waiting for an additional %.2f seconds.' % add)
+                                time.sleep(add)
+                                total_pauses += add
+                except Exception as e:
+                        print(f'\033[91mError: {e}\033[0m')
+                finally:
+                        continue
+
 
         print('---\nDownloading %d images took %.2f seconds to complete.\nPlus %.2f additional seconds of wait time.' % (len(links), total_time, total_pauses))
 
