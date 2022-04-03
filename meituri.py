@@ -6,7 +6,7 @@ import argparse
 import urllib.request as ul
 
 
-COMPLETE_TIME = 0
+COMPLETE_TIME = 5
 URL = 'http://lns.hywly.com/a/1/{}/{}.jpg'
 
 
@@ -55,11 +55,11 @@ def start():
                 datasrc = "".join([x if "data-src=" in x else "" for x in srcline_split])    # delete other parts except the part containing the pic download link
 
                 # Construct link template
-                link_template = datasrc.replace("data-src=","").replace("\"", "").split("?")[0].replace("001.jpg","%03d.jpg")
+                link_template = datasrc.replace("data-src=","").replace("\"", "").split("?")[0].replace("001.jpg","%03d.jpg").replace("001.jpeg","%03d.jpeg")
 
                 # Get the album size from link
                 album_size = int( srcline_split[srcline_split.index("photos)") - 1].replace("(","") )
-
+                print(link_template)
                 for x in range(1, album_size+1):
                         out.append(link_template % x)
                 album_name = link_template.split("/")[-1]
@@ -74,9 +74,6 @@ def start():
         try:
                 if not os.path.exists(path):
                         os.makedirs(path)
-        except NotADirectoryError as e:
-                print(f'NotADirectoryError: {e}')
-                return
         except OSError as e:
                 print(f'OSError: {e}')
                 return
@@ -110,6 +107,7 @@ def download_images(links, path):
                                 print('Waiting for an additional %.2f seconds.' % add)
                                 time.sleep(add)
                                 total_pauses += add
+
                 except Exception as e:
                         print(f'\033[91mError: {e}\033[0m')
                 finally:
