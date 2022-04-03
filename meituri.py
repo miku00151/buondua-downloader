@@ -4,7 +4,7 @@ import urllib.request
 import time
 import argparse
 import urllib.request as ul
-
+from urllib.error import HTTPError
 
 COMPLETE_TIME = 5
 URL = 'http://lns.hywly.com/a/1/{}/{}.jpg'
@@ -108,7 +108,7 @@ def download_images(links, path):
                                 time.sleep(add)
                                 total_pauses += add
 
-                except Exception as e:
+                except HTTPError as e:
                         print(f'\033[91mError: {e}\033[0m')
                 finally:
                         continue
