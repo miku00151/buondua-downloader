@@ -1,7 +1,7 @@
 # :ribbon: Buondua Album Downloader
 
 **Not safe for work (NSFW)**.  
-A command line script that lets you download albums with given album links from [buondua.com](https://www.buondua.com/).
+A command line script that lets you download albums with given album links from [buondua.com](https://buondua.com/).
 
 
 ```
