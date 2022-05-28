@@ -42,7 +42,7 @@ def start():
 		datasrc = ''.join([x if 'data-src=' in x else '' for x in srcline_split]) # delete other parts except the part containing the pic download link
 
 		# Construct link template
-		link_template = datasrc.replace('data-src=','').replace('\"', '').split('?')[0].replace('001.jpg','%03d.jpg').replace('001.jpeg','%03d.jpeg')
+		link_template = datasrc.replace('data-src=','').replace('\"', '').split('?')[0].replace('001.webp','%03d.webp').replace('001.jpeg','%03d.jpeg')
 
 		# Get the album size from link
 		album_size = int( srcline_split[srcline_split.index('photos)') - 1].replace('(',''))
