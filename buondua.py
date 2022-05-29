@@ -96,6 +96,9 @@ def download_images(links, path):
 		except HTTPError as e:
 			print(f'\033[91mError: {e}\033[0m')
 		finally:
+			if(sys.version_info[0] == 3 && sys.version_info[1] >= 8):
+				continue
+			else:
 				pass
 
 
