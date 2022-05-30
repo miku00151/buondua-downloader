@@ -5,7 +5,7 @@ import tkinter as tk
 import threading
 import shutil
 import platform
-import time
+import re
 
 
 if platform.system() == 'Windows':
@@ -167,7 +167,9 @@ class Gui(tk.Frame):
 		if val == '':
 			var = 'All complete!'
 		else:
-			var = val[:45] + '...'
+			var = val
+			if len(var) > 48:
+				var = val[:45] + '...'
 		self.current_title.config(text=var)
 
 	def set_queue_progress(self):
@@ -311,7 +313,14 @@ def split_url_head(url):
 	Keyword arguments:
 	url -- A URL to be converted into a name string
 	"""
-	return '-'.join(url.split('/')[-1].split('-')[:-3])
+	split_url = '-'.join(url.split('/')[-1].split('-')[:-3])
+	# somewhat of a solution to #13 on GitHub:
+	# removes Eastern Characters from the URL,
+	# or what they look like after getting copied
+	split_url = re.sub('%..', '', split_url)
+	if split_url.endswith('-'):
+		split_url = split_url[:-1]
+	return split_url
 
 def get_geometry():
 	"""Return geometry to spawn the program in the middle of the screen.
