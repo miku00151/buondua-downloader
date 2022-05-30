@@ -16,7 +16,7 @@ else: # Darwin & Linux, far cuter
 	X_MARK = '×'
 
 DWN_ROOT = 'albums' # TODO: a better, customisable place, possibly let user choose
-LOG = os.path.join(DWN_ROOT, 'log')
+LOG = os.path.join(DWN_ROOT, 'buondua-downloader.log')
 WAIT_TIME = 3 # additional wait time while downloading
 
 # Don't add these exact addresses to queue
@@ -167,7 +167,7 @@ class Gui(tk.Frame):
 		if val == '':
 			var = 'All complete!'
 		else:
-			var = val
+			var = val[:45] + '...'
 		self.current_title.config(text=var)
 
 	def set_queue_progress(self):
@@ -281,7 +281,7 @@ class Gui(tk.Frame):
 			finally:
 				continue
 
-		stat = f'{time.strftime("%Y-%m-%d %H:%M:%S")}:: {header}: {len(links)} images, {(total_time / 60):.1f} min. downloading, {(total_pauses / 60):.1f} min. waiting ({((total_time + total_pauses) / 60):1.f} min. total).'
+		stat = f'{time.strftime("%Y-%m-%d %H:%M:%S")}:: {header}: {len(links)} images, {(total_time / 60):.1f} min. downloading, {(total_pauses / 60):.1f} min. waiting ({((total_time + total_pauses) / 60):.1f} min. total).'
 		statn = stat + '\n'
 		self.update_output(statn)
 		print(stat)
