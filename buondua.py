@@ -17,7 +17,10 @@ else: # Darwin & Linux, far cuter
 
 DWN_ROOT = 'albums' # TODO: a better, customisable place, possibly let user choose
 LOG = os.path.join(DWN_ROOT, 'buondua-downloader.log')
-WAIT_TIME = 3 # additional wait time while downloading
+# minimum wait time between downloads per image (seconds),
+# to prevent getting blocked from the website,
+# EDIT AT YOUR OWN RISK!
+WAIT_TIME = 3
 
 # Don't add these exact addresses to queue
 BLACKLIST = [
@@ -162,7 +165,7 @@ class Gui(tk.Frame):
 		"""Set label of currently running job.
 		
 		Keyword arguments:
-		val -- 'name-title' of the current set (default '')
+		val -- title of the current album (default '')
 		"""
 		if val == '':
 			var = 'All complete!'
@@ -192,6 +195,7 @@ class Gui(tk.Frame):
 		self.free_space.configure(text=val)
 
 	def explore(self):
+		"""Browse into the downloads directory in the explorer."""
 		os.startfile(DWN_ROOT)
 
 	# --- core --- #
@@ -253,6 +257,11 @@ class Gui(tk.Frame):
 	def download_images(self, links, dest, header):
 		"""Start downloading images and update the 'stdout' as it progresses.
 		Output the time it took with set information to the log file when done.
+
+		Keyword arguments:
+		links -- list of image links from a URL
+		dest -- destination directory path for the images
+		header -- destination directory name, as well as part file name
 		"""
 		self.set_title(header)
 		total_time = 0
