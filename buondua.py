@@ -97,10 +97,7 @@ def download_images(links, path):
 		except HTTPError as e:
 			print(f'\033[91mError: {e}\033[0m')
 		finally:
-			if(sys.version_info[0] == 3 && sys.version_info[1] >= 8):
-				continue
-			else:
-				pass
+			pass
 
 
 	print(f'---\nDownloading {len(links)} images took {(total_time / 60):.1f} minutes ({total_time:.2f} seconds) to complete.\n  Plus {(total_pauses / 60):.1f} additional minutes ({total_pauses:.2f} seconds) of wait time.\n  {((total_time + total_pauses) / 60):.1f} minutes ({(total_time + total_pauses):.2f} seconds) in total.')
