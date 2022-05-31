@@ -1,11 +1,14 @@
 import os
 import time
 import argparse
-import sys
 import urllib.request as ul
 from urllib.error import HTTPError
 
-WAIT_TIME = 5
+
+# minimum wait time between downloads per image (seconds),
+# to prevent getting blocked from the website,
+# EDIT AT YOUR OWN RISK!
+WAIT_TIME = 3
 
 
 def start():
@@ -67,11 +70,18 @@ def start():
 		print(f'Error: {e}')
 
 def get_opener():
+    """Set request user-agent."""
 	opener = ul.build_opener()
 	opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36')]
 	ul.install_opener(opener)
 
 def download_images(links, path):
+    """Start downloading images.
+    
+    Keyword arguments:
+	links -- list of image links from a URL
+	path -- destination directory path for the images
+    """
 	total_time = 0
 	total_pauses = 0
 	get_opener()
@@ -97,7 +107,7 @@ def download_images(links, path):
 		except HTTPError as e:
 			print(f'\033[91mError: {e}\033[0m')
 		finally:
-				pass
+			pass
 
 
 	print(f'---\nDownloading {len(links)} images took {(total_time / 60):.1f} minutes ({total_time:.2f} seconds) to complete.\n  Plus {(total_pauses / 60):.1f} additional minutes ({total_pauses:.2f} seconds) of wait time.\n  {((total_time + total_pauses) / 60):.1f} minutes ({(total_time + total_pauses):.2f} seconds) in total.')
