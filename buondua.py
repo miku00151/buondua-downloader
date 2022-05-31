@@ -16,6 +16,8 @@ else: # Darwin & Linux, far cuter
 	X_MARK = '×'
 
 DWN_ROOT = 'albums' # TODO: a better, customisable place, possibly let user choose
+if not os.path.isdir(DWN_ROOT):
+	os.mkdir(DWN_ROOT)
 LOG = os.path.join(DWN_ROOT, 'buondua-downloader.log')
 # minimum wait time between downloads per image (seconds),
 # to prevent getting blocked from the website,
