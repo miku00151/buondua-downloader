@@ -70,18 +70,18 @@ def start():
 		print(f'Error: {e}')
 
 def get_opener():
-    """Set request user-agent."""
+	"""Set request user-agent."""
 	opener = ul.build_opener()
 	opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36')]
 	ul.install_opener(opener)
 
 def download_images(links, path):
-    """Start downloading images.
-    
-    Keyword arguments:
+	"""Start downloading images.
+
+	Keyword arguments:
 	links -- list of image links from a URL
 	path -- destination directory path for the images
-    """
+	"""
 	total_time = 0
 	total_pauses = 0
 	get_opener()
